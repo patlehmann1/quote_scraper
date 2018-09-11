@@ -1,0 +1,30 @@
+{
+  "name": "pop_mech_scraper",
+  "version": "1.0.0",
+  "description": "mongoDB web scraping homework, University of Richmond Coding Bootcamp, September 2018",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patlehmann1/pop_mech_scraper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/patlehmann1/pop_mech_scraper/issues"
+  },
+  "homepage": "https://github.com/patlehmann1/pop_mech_scraper#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.2.13",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.18.4",
+    "request": "^2.88.0"
+  }
+}
