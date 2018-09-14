@@ -9,7 +9,7 @@ const request = require("request");
 const axios = require("axios");
 //require models
 const db = require("./models");
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 
 var app = express();
