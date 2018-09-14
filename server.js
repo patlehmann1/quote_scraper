@@ -1,4 +1,6 @@
 const express = require("express");
+var exphbs  = require('express-handlebars');
+
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cheerio = require("cheerio");
@@ -11,6 +13,9 @@ const PORT = 3000;
 
 
 var app = express();
+app.engine('handlebars', exphbs({defaultLayout: 'index'}));
+app.set('view engine', 'handlebars');
+
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -21,18 +26,20 @@ mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 app.get("/scrape", function(req, res) {
-    axios.get("http://quotes.toscrape.com/").then(function(response) {
+    axios.get("https://www.newsday.com/long-island").then(function(response) {
 
       var $ = cheerio.load(response.data);
   
-      $("div").each(function(i, element) {
+      $("a.lead").each(function(i, element) {
         var result = {};
 
         result.title = $(this)
-          .children("span")
           .text();
+
+        result.link = $(this)
+          .attr("href");
   
-        db.Quote.create(result)
+        db.Article.create(result)
           .then(function(dbArticle) {
             console.log(dbArticle);
           })
@@ -45,8 +52,12 @@ app.get("/scrape", function(req, res) {
     });
   });
 
+app.get("/", function(req, res){
+  res.render('main');
+})
+
 app.get("/quotes", function(req, res) {
-    db.Quote.find({})
+    db.Article.find({})
       .then(function(dbArticle) {
         res.json(dbArticle);
         console.log(dbArticle);
@@ -57,7 +68,7 @@ app.get("/quotes", function(req, res) {
   });
 
 app.get("/quotes/:id", function(req, res) {
-    db.Quote.findOne({ _id: req.params.id })
+    db.Article.findOne({ _id: req.params.id })
       .populate("note")
       .then(function(dbArticle) {
         res.json(dbArticle);

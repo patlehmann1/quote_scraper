@@ -1,8 +1,12 @@
 var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
-var QuoteSchema = new Schema({
+var ArticleSchema = new Schema({
   title: {
+    type: String,
+    required: true
+  },
+  link: {
     type: String,
     required: true
   },
@@ -15,8 +19,5 @@ var QuoteSchema = new Schema({
   }
 });
 
-// This creates our model from the above schema, using mongoose's model method
-var Quote = mongoose.model("Quote", QuoteSchema);
-
-// Export the Article model
-module.exports = Quote;
+var Article = mongoose.model("Article", ArticleSchema);
+module.exports = Article;
