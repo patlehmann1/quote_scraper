@@ -1,4 +1,4 @@
-$.getJSON("/quotes", function(data) {
+$.getJSON("/articles", function(data) {
     for (var i = 0; i < data.length; i++) {
       $("#quotes").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br><a target='_blank' href='https://www.newsday.com" + data[i].link + "'> Link to Article </a>" + "</p>");
     }
@@ -10,7 +10,7 @@ $.getJSON("/quotes", function(data) {
   
     $.ajax({
       method: "GET",
-      url: "/quotes/" + thisId
+      url: "/articles/" + thisId
     })
       .then(function(data) {
         console.log(data);
@@ -31,7 +31,7 @@ $.getJSON("/quotes", function(data) {
   
     $.ajax({
       method: "POST",
-      url: "/quotes/" + thisId,
+      url: "/articles/" + thisId,
       data: {
         title: $("#titleinput").val(),
 
